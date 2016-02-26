@@ -1,0 +1,10 @@
+setup.py
+sapy/__init__.py
+sapy/gmsh.py
+sapy/solver.py
+sapy.egg-info/PKG-INFO
+sapy.egg-info/SOURCES.txt
+sapy.egg-info/dependency_links.txt
+sapy.egg-info/not-zip-safe
+sapy.egg-info/requires.txt
+sapy.egg-info/top_level.txt
