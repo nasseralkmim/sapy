@@ -1,25 +1,33 @@
 from sapy import displmethod
 from sapy import element
+from sapy import gmsh
+from sapy import structure
+from sapy import plotter
+import matplotlib.pyplot as plt
 
-def main():
-    """Problem statement
 
-    """
-    mesh_file = 'patch'
+mesh_file = 'patch'
 
-    ele = element.Data()
-    for i in range(6):
-        ele.E[i] = 10.
-        ele.A[i] = 10.
-        ele.TYPE[i] = 'Truss'
+mesh = gmsh.Parse(mesh_file)
 
-    bound = {0: [1, 1, 1],
-             2: [0, 0, 1],
-             1: [0, 1, 1]}
+ele = element.Data()
+for i in range(6):
+    ele.E[i] = 10.
+    ele.A[i] = 10.
+    ele.TYPE[i] = 'Truss'
 
-    nodal_load = {3: [10.0, -20.0, 50.0]}
+bound = {0: [1, 1, 1],
+         2: [0, 0, 1],
+         1: [0, 1, 1]}
 
-    displmethod.solver(mesh_file, ele, bound, nodal_load)
+model = structure.Builder(mesh, ele, bound)
 
-if __name__ == '__main__':
-    main()
+nodal_load = {3: [10.0, -20.0, 50.0]}
+
+U, Q = displmethod.solver(mesh, model, ele, nodal_load)
+
+plotter.undeformed(model)
+plotter.deformed(model, U)
+plotter.axialforce(model, Q)
+
+plt.show()

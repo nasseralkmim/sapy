@@ -23,16 +23,14 @@ def undeformed(model):
         axes = undeformed.add_subplot(111, aspect='equal')
         geo2d(model.XYZ, model.CON, axes, color='black')
         label2d(model.XYZ, model.CON, axes)
-        plt.tight_layout()
-        plt.autoscale()
+        undeformed.tight_layout()
 
     if model.ndm == 3:
         undeformed = window('Undeformed')
         axes = undeformed.add_subplot(111, projection='3d', aspect='equal')
         geo3d(model.XYZ, model.CON, axes, 'black')
         label3d(model.XYZ, model.CON, axes)
-        plt.tight_layout()
-        plt.autoscale()
+        undeformed.tight_layout()
 
 
 def deformed(model, U):
@@ -53,8 +51,7 @@ def deformed(model, U):
         geo2d(XYZ, CON, axes, 'tomato')
         geo2d(model.XYZ, model.CON, axes, 'black')
         label2d(XYZ, CON, axes)
-        plt.tight_layout()
-        plt.autoscale()
+        deformed.tight_layout()
 
     if model.ndm == 3:
         deformed = window('Deformed')
@@ -62,8 +59,7 @@ def deformed(model, U):
         geo3d(model.XYZ, model.CON, axes, 'black')
         geo3d(XYZ, CON, axes, 'tomato')
         label3d(XYZ, CON, axes)
-        plt.tight_layout()
-        plt.autoscale()
+        deformed.tight_layout()
 
 
 def geo3d(XYZ, CON, axes, color):
@@ -86,8 +82,6 @@ def geo3d(XYZ, CON, axes, color):
         line = Line3D(xs, ys, zs, linewidth=1.0, color=color)
         axes.add_line(line)
 
-    plt.draw()
-
 
 def label3d(XYZ, CON, axes):
     """Plot the nodes and element label
@@ -101,8 +95,6 @@ def label3d(XYZ, CON, axes):
         ym = (XYZ[con[0]][1] + XYZ[con[1]][1])/2
         zm = (XYZ[con[0]][2] + XYZ[con[1]][2])/2
         axes.text(xm, ym, zm, str(ele), color='g', size=10)
-
-    plt.draw()
 
 
 def geo2d(XYZ, CON, axes, color):
@@ -123,8 +115,6 @@ def geo2d(XYZ, CON, axes, color):
         line = Line2D(xs, ys, linewidth=1.0, color=color)
         axes.add_line(line)
 
-    plt.draw()
-
 
 def label2d(XYZ, CON, axes):
     """Plot the nodes and element label
@@ -138,8 +128,6 @@ def label2d(XYZ, CON, axes):
         ym = (XYZ[con[0]][1] + XYZ[con[1]][1])/2
         axes.text(xm, ym, str(ele), color='g', size=10)
 
-    plt.draw()
-
 
 def axialforce(model, Q):
     """Plot axial force
@@ -150,16 +138,14 @@ def axialforce(model, Q):
         axes = axial.add_subplot(111, aspect='equal')
         geo2d(model.XYZ, model.CON, axes, color='black')
         axial2d(model.XYZ, model.CON, Q, axes)
-        plt.tight_layout()
-        plt.autoscale()
+        axial.tight_layout()
 
     if model.ndm == 3:
         axial = window('Axial')
         axes = axial.add_subplot(111, projection='3d', aspect='equal')
         geo3d(model.XYZ, model.CON, axes, 'black')
         axial3d(model.XYZ, model.CON, Q, axes)
-        plt.tight_layout()
-        plt.autoscale()
+        axial.tight_layout()
 
 
 def axial2d(XYZ, CON, Q, axes):
@@ -171,8 +157,6 @@ def axial2d(XYZ, CON, Q, axes):
         ym = (XYZ[con[0]][1] + XYZ[con[1]][1])/2
         axes.text(xm, ym, str(np.round_(Q[ele], 1)), color='g', size=10)
 
-    plt.draw()
-
 
 def axial3d(XYZ, CON, Q, axes):
     """Plot text with axial force value for 3d plot
@@ -183,5 +167,3 @@ def axial3d(XYZ, CON, Q, axes):
         ym = (XYZ[con[0]][1] + XYZ[con[1]][1])/2
         zm = (XYZ[con[0]][2] + XYZ[con[1]][2])/2
         axes.text(xm, ym, zm, str(np.round_(Q[ele], 1)), color='g', size=10)
-
-    plt.draw()

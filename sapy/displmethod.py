@@ -1,5 +1,4 @@
 from sapy import gmsh
-from sapy import plotter
 from sapy import structure
 from sapy import kinematics
 from sapy import stiffness
@@ -8,16 +7,10 @@ from sapy import index
 import numpy as np
 
 
-def solver(mesh_file, ele, bound, nodal_load):
+def solver(mesh, model, ele, nodal_load):
     """Displacement method of analysis solver
 
     """
-    mesh = gmsh.Parse(mesh_file)
-
-    model = structure.Builder(mesh, ele, bound)
-
-    plotter.undeformed(model)
-
     A = kinematics.A_matrix(model, ele)
 
     Ks = stiffness.Ks_matrix(model, ele)
@@ -32,12 +25,8 @@ def solver(mesh_file, ele, bound, nodal_load):
 
     U = index.tdof(model, Uf)
 
-    plotter.deformed(model, U)
-
     V = np.dot(A, U)
 
     Q = np.dot(Ks, V)
 
-    plotter.axialforce(model, Q)
-
-    plotter.show()
+    return U, Q

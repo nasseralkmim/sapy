@@ -10,6 +10,7 @@ class Parse:
 
     """
     def __init__(self, filename):
+        self.name = filename
         geo_path = os.path.join(filename+'.geo')
         geo_file = open(geo_path, 'r')
 

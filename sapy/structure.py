@@ -6,6 +6,7 @@ class Builder():
 
     """
     def __init__(self, mesh, elem, bound):
+        self.name = mesh.name
         self.ne = len(mesh.con)
         self.nn = len(mesh.xyz)
 
